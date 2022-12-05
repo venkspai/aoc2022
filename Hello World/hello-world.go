@@ -4,6 +4,8 @@ import (
 	"reflect"
 	"fmt"
     "strconv"
+    "math"
+    "strings"
 )
       
 func main() {
@@ -20,7 +22,20 @@ func main() {
     number3 = number1 + number2
     fmt.Println("Total is ", number3)
 
+    
     intVar, err := strconv.Atoi(strVar)
     fmt.Println(intVar, err, reflect.TypeOf(intVar))
+
+
+    //Using math and strings packages 
+    fmt.Println(math.Floor(2.75))
+    fmt.Println(strings.Title("head first go"))
+
+    //Printing a rune
+    fmt.Println('A')
+
+    //Printing Booleans and Integers
+    fmt.Println(true);
+    fmt.Println(23)
 
   }
