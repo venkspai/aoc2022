@@ -30,6 +30,7 @@ func main() {
 			tempTotal = tempTotal + number2 
 		} else	{
 			if tempTotal > max {
+				fmt.Println(">>>>>>>>>>>>>>>>>>>>>>")
 				max = tempTotal
 			}
 			tempTotal = 0
