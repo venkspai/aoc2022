@@ -4,76 +4,76 @@ import (
     "bufio"
     "fmt"
     "os"
-	"strconv"
+
 	
 )
+
+func calcPriority(ruckSack []rune) int {
+	fmt.Println(string(ruckSack))
+	ruckSackLen := len(ruckSack)
+	fmt.Println(ruckSackLen)
+
+	var priority rune
+	var priorityInt int
+
+	for i :=0; i < ruckSackLen/2; i++ {
+		for t:=(ruckSackLen/2); t < (ruckSackLen); t++ {
+			if (ruckSack[i] == ruckSack[t]) {
+				priority = ruckSack[i]
+				break
+			}
+		}
+	}
+
+	if (priority > 96) {
+		priorityInt = int(priority - 96)
+	} else {
+		priorityInt = int(priority - 38)
+	}
+	
+	fmt.Println("Priority rune is", priority)
+	fmt.Println("Priority for", string(priority), "is", priorityInt)
+	fmt.Println("")
+	return priorityInt
+	
+}
  
 func main() {
  
-	//Declaring variables
-	var tempTotal, number2, max = 0, 0, 0
 	//var err string
+	readFile, err := os.Open("data.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
 
-    readFile, err := os.Open("data.txt")
+	fileScanner := bufio.NewScanner(readFile)
+	fileScanner.Split(bufio.ScanLines)
   
-    if err != nil {
-        fmt.Println(err)
-    }
-    fileScanner := bufio.NewScanner(readFile)
- 
-    fileScanner.Split(bufio.ScanLines)
-  
+	/*
+	Read the file
+	Scan the string
+	read the halves into separate arrays
+	compare arrays to find the common letter
+	capture letter
+	Break
+	Find the priority value associated with that letter
+	total up priority values
+	*/
+
+	var myStringSlice []rune
+	var totalPriority int = 0
+
     for fileScanner.Scan() {
-   		intVar, _ := strconv.Atoi(fileScanner.Text())
-		if intVar != 0 {
-			number2 = intVar
-			tempTotal = tempTotal + number2 
-		} else	{
-			if tempTotal > max {
-				fmt.Println(">>>>>>>>>>>>>>>>>>>>>>")
-				max = tempTotal
-			}
-			tempTotal = 0
-			number2 = 0
-		}
-		
-		fmt.Println("Max calories: ", max)
-
+		myStringSlice = ([]rune(fileScanner.Text()))
+		totalPriority = totalPriority + calcPriority(myStringSlice)
+		//fmt.Println(string(myStringSlice))
     }
+
+	fmt.Println("Total Priority: ", totalPriority)
+
+	
   
     readFile.Close()
 
-
-/*
-import (
-	"fmt"
-	"time"
-	"reflect"
-	"strings"
-	"bufio"
-	"os"
-)
-
-func main() {
-
-	var now time.Time = time.Now()
-	var year int = now.Year()
-	fmt.Println(year)
-	fmt.Println(reflect.TypeOf(now))
-
-	//Replacer
-	replacer := strings.NewReplacer("#", "o")
-	broken := "G# R#cks!"
-	fixed := replacer.Replace(broken)
-	fmt.Println(fixed)
-
-	//Reading values from the standard input
-
-	fmt.Print("Enter your grade: ")
-	reader := bufio.NewReader(os.Stdin)
-	os.Re
-	input, _ := reader.ReadString('\n')
-	fmt.Println("Your grade is ", input)
-*/	
 
 }
